@@ -1,0 +1,52 @@
+version: "3.3"
+
+services:
+  db:
+    container_name: randomchat_db
+    image: library/postgres:13.0
+    restart: unless-stopped
+    ports:
+      - 9432:5432
+    networks:
+      - default
+    volumes:
+      - ../db/randomchat:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=randomchat
+      - POSTGRES_USER=randomchat
+      - POSTGRES_PASSWORD=randomchat
+
+  redis:
+    image: library/redis:5.0-alpine
+    ports:
+      - 7379:6379
+    restart: unless-stopped
+    networks:
+      - default
+    volumes:
+      - backend-redis:/data
+
+  backend:
+    container_name: chat-api
+    ports:
+      - 8909:8000
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    networks:
+      - default
+    depends_on:
+      - redis
+      - db
+    volumes:
+      - .:/app
+    command: python manage.py runserver 0.0.0.0:8000
+    env_file: common.env
+
+volumes:
+  backend-redis:
+    driver: local
+networks:
+  default:
+    driver: bridge
