@@ -22,3 +22,42 @@ class AuthUser(AbstractUser):
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
+
+
+class Conversation(models.Model):
+    
+    GENDER_CHOICES = (
+        ("MALE", "MALE"),
+        ("FEMALE", "FEMALE"),
+        ("LGBT", "LGBT")
+    )
+
+    name = models.CharField(max_length=128)
+    find_gender = models.CharField(
+        max_length=20, choices=GENDER_CHOICES
+    )
+    user_gender = models.CharField(
+        max_length=20, choices=GENDER_CHOICES
+    )
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Message(models.Model):
+    conversation = models.ForeignKey(
+        Conversation, on_delete=models.CASCADE, related_name="messages"
+    )
+    from_user = models.ForeignKey(
+        AuthUser, on_delete=models.CASCADE, related_name="messages_from_me"
+    )
+    to_user = models.ForeignKey(
+        AuthUser, on_delete=models.CASCADE, related_name="messages_to_me"
+    )
+    content = models.CharField(max_length=512)
+    created_at = models.DateTimeField(auto_now_add=True)
+    read = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"From {self.from_user.username} to {self.to_user.username}: {self.content} [{self.created_at}]"

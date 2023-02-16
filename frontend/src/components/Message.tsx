@@ -13,7 +13,7 @@ export function Message({ message }: { message: MessageModel }) {
     username: "Test1",
     token: "string",
   };
-  console.log(message);
+  // console.log(message);
 
   function formatMessageTimestamp(timestamp: string) {
     const date = new Date();

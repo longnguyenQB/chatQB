@@ -14,7 +14,7 @@ const DefaultProps = {
 };
 
 export interface AuthProps {
-  login: (username: string, password: string) => any;
+  login: (email: string, password: string) => any;
   logout: () => void;
   authAxios: AxiosInstance;
   user: UserModel | null;
@@ -28,8 +28,8 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({
   const navigate = useNavigate();
   const [user, setUser] = useState(() => AuthService.getCurrentUser());
 
-  async function login(username: string, password: string) {
-    const data = await AuthService.login(username, password);
+  async function login(email: string, password: string) {
+    const data = await AuthService.login(email, password);
     setUser(data);
     return data;
   }

@@ -3,9 +3,12 @@ import { Link } from "react-router-dom";
 
 const Register = () => {
   return (
-    <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
+    <div className="relative flex flex-col justify-center mt-20 overflow-hidden">
       <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
-        <h1 className="text-3xl font-semibold text-center text-purple-700">
+        <h1
+          style={{ fontFamily: "Awesome" }}
+          className="text-9xl font-semibold text-center text-purple-700"
+        >
           Đăng ký
         </h1>
         <form className="mt-6">

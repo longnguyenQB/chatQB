@@ -1,26 +1,53 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./components/Login";
-import Register from "./components/Register";
-import Room from "./components/Room";
-import { ProtectedRoute } from "./components/ProtectedRoute";
+// import { ActiveConversations } from "./components/ActiveConversations";
 import Chat from "./components/Chat";
+// import { Conversations from "./components/Conversations";
+import Login from "./components/Login";
+import Room from "./components/Room";
 
-function App() {
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import { AuthContextProvider } from "./contexts/AuthContext";
+import { Navbar } from "./components/Navbar";
+import Register from "./components/Register";
+
+export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/">
+        <Route
+          path="/"
+          element={
+            <AuthContextProvider>
+              <Navbar />
+            </AuthContextProvider>
+          }
+        >
           <Route
             path=""
-            element={<ProtectedRoute>{/* <Conversations /> */}</ProtectedRoute>}
+            element={
+              <ProtectedRoute>
+                <Room />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="find-room/"
+            element={
+              <ProtectedRoute>
+                <Room />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="chats/:conversationName"
+            element={
+              <ProtectedRoute>
+                <Chat />
+              </ProtectedRoute>
+            }
           />
           <Route path="register" element={<Register />} />
-          <Route path="chat" element={<Chat />} />
-
-          <Route path="find-room" element={<Room />} />
 
           <Route path="login" element={<Login />} />
         </Route>
@@ -28,5 +55,3 @@ function App() {
     </BrowserRouter>
   );
 }
-
-export default App;

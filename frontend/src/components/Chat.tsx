@@ -10,6 +10,8 @@ import ChatForm from "./ChatForm";
 const Chat = () => {
   const { conversationName } = useParams();
   const { user } = useContext(AuthContext);
+  console.log(user);
+
   const [participants, setParticipants] = useState<string[]>([]);
   const [conversation, setConversation] = useState<null>(null);
   const [messageHistory, setMessageHistory] = useState<MessageModel[]>([
@@ -18,11 +20,13 @@ const Chat = () => {
       room: "string",
       from_user: {
         username: "Test1",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       to_user: {
         username: "Test2",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       content:
         "stringggdsfassdfdsfdsfdsfdsfdsfdsfsdfsdnfkdjfnksnfsakfnskfnaskdfnajsfnsjfnsjkfnskfnsknfsjnsnsfjknsfnsakfnsjdfndsjkfnsadkjf",
@@ -34,11 +38,13 @@ const Chat = () => {
       room: "string",
       from_user: {
         username: "Test2",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       to_user: {
         username: "Test1",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       content:
         "tessttttttsadasdbjkdasbfgjkdsbfkdsnfakdsjndsjnfsdjknfsakjnfaksjnjsdkfnskjd",
@@ -50,11 +56,13 @@ const Chat = () => {
       room: "string",
       from_user: {
         username: "Test1",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       to_user: {
         username: "Test2",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       content: "🙁😙😙 xin chào nha",
       timestamp: "string",
@@ -65,11 +73,13 @@ const Chat = () => {
       room: "string",
       from_user: {
         username: "Test2",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       to_user: {
         username: "Test1",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       content: "tesstttttt",
       timestamp: "string",
@@ -80,11 +90,13 @@ const Chat = () => {
       room: "string",
       from_user: {
         username: "Test1",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       to_user: {
         username: "Test2",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       content: "string",
       timestamp: "string",
@@ -95,11 +107,13 @@ const Chat = () => {
       room: "string",
       from_user: {
         username: "Test2",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       to_user: {
         username: "Test1",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       content: "tesstttttt",
       timestamp: "string",
@@ -110,11 +124,13 @@ const Chat = () => {
       room: "string",
       from_user: {
         username: "Test1",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       to_user: {
         username: "Test2",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       content: "string",
       timestamp: "string",
@@ -125,11 +141,13 @@ const Chat = () => {
       room: "string",
       from_user: {
         username: "Test2",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       to_user: {
         username: "Test1",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       content: "tesstttttt",
       timestamp: "string",
@@ -140,11 +158,13 @@ const Chat = () => {
       room: "string",
       from_user: {
         username: "Test1",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       to_user: {
         username: "Test2",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       content: "string",
       timestamp: "string",
@@ -155,11 +175,13 @@ const Chat = () => {
       room: "string",
       from_user: {
         username: "Test2",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       to_user: {
         username: "Test1",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       content: "tesstttttt",
       timestamp: "string",
@@ -170,11 +192,13 @@ const Chat = () => {
       room: "string",
       from_user: {
         username: "Test1",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       to_user: {
         username: "Test2",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       content: "string",
       timestamp: "string",
@@ -185,11 +209,13 @@ const Chat = () => {
       room: "string",
       from_user: {
         username: "Test2",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       to_user: {
         username: "Test1",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       content: "tesstttttt",
       timestamp: "string",
@@ -200,11 +226,13 @@ const Chat = () => {
       room: "string",
       from_user: {
         username: "Test1",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       to_user: {
         username: "Test2",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       content: "string",
       timestamp: "string",
@@ -215,11 +243,13 @@ const Chat = () => {
       room: "string",
       from_user: {
         username: "Test2",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       to_user: {
         username: "Test1",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       content: "tesstttttt",
       timestamp: "string",
@@ -230,11 +260,13 @@ const Chat = () => {
       room: "string",
       from_user: {
         username: "Test1",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       to_user: {
         username: "Test2",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       content: "string",
       timestamp: "string",
@@ -245,11 +277,13 @@ const Chat = () => {
       room: "string",
       from_user: {
         username: "Test2",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       to_user: {
         username: "Test1",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       content: "tesstttttt",
       timestamp: "string",
@@ -260,11 +294,13 @@ const Chat = () => {
       room: "string",
       from_user: {
         username: "Test1",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       to_user: {
         username: "Test2",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       content: "string",
       timestamp: "string",
@@ -275,11 +311,13 @@ const Chat = () => {
       room: "string",
       from_user: {
         username: "Test2",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       to_user: {
         username: "Test1",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       content: "tesstttttt",
       timestamp: "string",
@@ -290,11 +328,13 @@ const Chat = () => {
       room: "string",
       from_user: {
         username: "Test1",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       to_user: {
         username: "Test2",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       content: "string",
       timestamp: "string",
@@ -305,11 +345,13 @@ const Chat = () => {
       room: "string",
       from_user: {
         username: "Test2",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       to_user: {
         username: "Test1",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       content: "tesstttttt",
       timestamp: "1675761767000",
@@ -320,11 +362,13 @@ const Chat = () => {
       room: "string",
       from_user: {
         username: "Test1",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       to_user: {
         username: "Test2",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       content: "string",
       timestamp: "string",
@@ -335,11 +379,13 @@ const Chat = () => {
       room: "string",
       from_user: {
         username: "Test2",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       to_user: {
         username: "Test1",
-        token: "string",
+        access: "",
+        refresh: "",
       },
       content: "tesstttttt",
       timestamp: "string",

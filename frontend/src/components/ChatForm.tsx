@@ -25,7 +25,7 @@ const ChatForm = (props: any) => {
 
   const handleEmojiClick = (emojiObject: EmojiClickData, event: MouseEvent) => {
     let newMessage = message + emojiObject?.emoji;
-    console.log(emojiObject);
+    // console.log(emojiObject);
 
     setMessage(newMessage);
   };
