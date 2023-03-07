@@ -1,4 +1,4 @@
-import { UserModel } from './User';
+import { UserModel } from "./User";
 
 export interface MessageModel {
   id: string;
@@ -6,6 +6,6 @@ export interface MessageModel {
   from_user: UserModel;
   to_user: UserModel;
   content: string;
-  timestamp: string;
+  created_at: string;
   read: boolean;
 }

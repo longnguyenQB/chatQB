@@ -27,15 +27,7 @@ export default function App() {
             path=""
             element={
               <ProtectedRoute>
-                <Room />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="find-room/"
-            element={
-              <ProtectedRoute>
-                <Room />
+                <Chat />
               </ProtectedRoute>
             }
           />

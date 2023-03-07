@@ -8,13 +8,7 @@ export function classNames(...classes: any) {
 }
 
 export function Message({ message }: { message: MessageModel }) {
-  // const { user } = useContext(AuthContext);
-  const user = {
-    username: "Test1",
-    token: "string",
-  };
-  // console.log(message);
-
+  const { user } = useContext(AuthContext);
   function formatMessageTimestamp(timestamp: string) {
     const date = new Date();
     return date.toLocaleTimeString().slice(0, 4);
@@ -48,7 +42,7 @@ export function Message({ message }: { message: MessageModel }) {
               "block text-sm   text-gray-700 dark:text-gray-400"
             )}
           >
-            {format("2023-02-07 12:00:00", "vi_VN")}
+            {format(message.created_at, "vi_VN")}
           </span>
         </div>
       </li>

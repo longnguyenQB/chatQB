@@ -7,19 +7,18 @@ class AuthService {
   }
 
   async login(email: string, password: string): Promise<UserModel> {
-    const response = await axios.post("http://127.0.0.1:8909/api/login/", {
-      email,
-      password,
-    });
-    this.setUserInLocalStorage(response.data);
-    return response.data;
-    // const response = {
-    //   data: {
-    //     token: "hehehe",
-    //     username: "nam anh",
-    //   },
-    // };
-    // return response.data;
+    // const response = await axios.post("http://127.0.0.1:8909/api/login/", {
+    //   email,
+    //   password,
+    // });
+    // this.setUserInLocalStorage(response.data);
+    const response = {
+      username: "string",
+      refresh: "string",
+      access: "string",
+    };
+    this.setUserInLocalStorage(response);
+    return response;
   }
 
   logout() {

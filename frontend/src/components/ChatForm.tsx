@@ -36,15 +36,22 @@ const ChatForm = (props: any) => {
     props.handleFormSubmit(message);
     setMessage("");
   };
+  const handleKeyDown = (event: any) => {
+    if (event.key === "Enter") {
+      handleFormSubmit(event);
+    }
+  };
 
   return (
     <div ref={scrollRef}>
       {showEmojiPicker && (
-        <EmojiPicker
-          autoFocusSearch={false}
-          emojiStyle={EmojiStyle.APPLE}
-          onEmojiClick={handleEmojiClick}
-        />
+        <div className="">
+          <EmojiPicker
+            autoFocusSearch={false}
+            emojiStyle={EmojiStyle.APPLE}
+            onEmojiClick={handleEmojiClick}
+          />
+        </div>
       )}
       <form onSubmit={handleFormSubmit}>
         <div className="flex items-center justify-between w-full p-3 bg-white border-b border-gray-200 dark:bg-gray-900 dark:border-gray-700">
@@ -68,7 +75,8 @@ const ChatForm = (props: any) => {
             required
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            onClick={(e: any) => setShowEmojiPicker(!showEmojiPicker)}
+            onClick={(e: any) => setShowEmojiPicker(false)}
+            onKeyDown={(e: any) => handleKeyDown(e)}
           />
           <button type="submit">
             <PaperAirplaneIcon

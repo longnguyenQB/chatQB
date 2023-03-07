@@ -18,19 +18,23 @@ export function Navbar() {
               }}
               className="text-7xl self-center font-semibold whitespace-nowrap dark:text-white"
             >
-              Random Chat
+              Chat QB
             </span>
           </Link>
-          <div className="hidden w-full md:block md:w-auto" id="mobile-menu">
-            <ul className="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
+          <div className="w-full md:w-auto" id="mobile-menu">
+            <ul className="flex flex-col mt-4 md:flex-row md:mt-0 md:text-sm md:font-medium">
               {user && (
                 <>
                   <span className="text-white">Logged in: {user.username}</span>
                   <button
-                    className="block text-xl py-2 pr-4 pl-3 text-purple-800 md:p-0"
+                    style={{
+                      fontFamily: "Awesome",
+                      color: "purple",
+                    }}
+                    className=" font-bold text-5xl py-2 pr-4 pl-3 text-purple-800 md:p-0"
                     onClick={logout}
                   >
-                    Logout
+                    Đăng xuất
                   </button>
                 </>
               )}
@@ -38,7 +42,7 @@ export function Navbar() {
           </div>
         </div>
       </nav>
-      <div className="max-w-3xl mx-auto ">
+      <div className="max-w-5xl mx-auto ">
         <Outlet />
       </div>
     </>
