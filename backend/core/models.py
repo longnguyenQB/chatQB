@@ -39,7 +39,16 @@ class Conversation(models.Model):
     user_gender = models.CharField(
         max_length=20, choices=GENDER_CHOICES
     )
+    user_create_zoom = models.ForeignKey(
+        AuthUser, on_delete=models.CASCADE, related_name="conversation_create_user", null=True, blank=True
+    )
+    user_guest = models.ForeignKey(
+        AuthUser, on_delete=models.CASCADE, related_name="conversation_guest_user", null=True, blank=True
+    )
     is_active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['-id']
 
     def __str__(self):
         return self.name
@@ -58,6 +67,9 @@ class Message(models.Model):
     content = models.CharField(max_length=512)
     created_at = models.DateTimeField(auto_now_add=True)
     read = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['-id']
 
     def __str__(self):
         return f"From {self.from_user.username} to {self.to_user.username}: {self.content} [{self.created_at}]"

@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_framework_simplejwt',
+    'rest_framework.authtoken',
     'channels',
     # app
     'core',
@@ -179,7 +180,7 @@ SIMPLE_JWT = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "Asia/Ho_Chi_Minh"
 
 USE_I18N = True
 

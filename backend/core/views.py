@@ -44,7 +44,7 @@ class UserRegisterAPI(APIView):
         serializer = UserCreateSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, 201)
+            return Response({"email":serializer.data['email']}, 201)
         else:
             return Response(serializer.data, 403)
 
@@ -53,9 +53,10 @@ class FindingRoom(APIView):
 
     def post(self, request):
         data = request.data
+        user = request.user
         find_gender = data.get("find_gender")
-        user_gender = data.get("user_gender")
-        conversation = get_or_create(find_gender,user_gender)
+        user_gender = user.gender
+        conversation = get_or_create(user,find_gender,user_gender)
         conversation_data = ConversationSerializer(conversation).data
         return Response(conversation_data, 200)
 
@@ -63,112 +64,129 @@ class FindingRoom(APIView):
         
 
 
-def get_or_create(find_gender, user_gender):
+def get_or_create(user, find_gender, user_gender):
     if user_gender == GENDER.MALE:
         if find_gender == GENDER.MALE:
-            
-            conversation = Conversation.objects.filter(user_gender=GENDER.MALE, find_gender=GENDER.MALE, is_active=True)
+            conversation = Conversation.objects.filter(user_gender=GENDER.MALE, find_gender=GENDER.MALE, is_active=True).exclude(user_create_zoom=user)
             if conversation.exists():
+                conversation.update(user_guest=user)
                 return conversation.last()
             else:
                 conversation = Conversation.objects.create(
                     name=rand_str(),
                     user_gender=user_gender,
                     find_gender=find_gender,
+                    user_create_zoom=user,
                 )
                 return conversation
 
         elif find_gender == GENDER.FEMALE:
-            conversation = Conversation.objects.filter(user_gender=GENDER.FEMALE, find_gender=GENDER.MALE, is_active=True)
+            conversation = Conversation.objects.filter(user_gender=GENDER.FEMALE, find_gender=GENDER.MALE, is_active=True).exclude(user_create_zoom=user)
             if conversation.exists():
+                conversation.update(user_guest=user)
                 return conversation.last()
             else:
                 conversation = Conversation.objects.create(
                     name=rand_str(),
                     user_gender=user_gender,
                     find_gender=find_gender,
+                    user_create_zoom=user,
                 )
                 return conversation
         elif find_gender == GENDER.LGBT:
-                conversation = Conversation.objects.filter(user_gender=GENDER.LGBT, find_gender=GENDER.MALE, is_active=True)
+                conversation = Conversation.objects.filter(user_gender=GENDER.LGBT, find_gender=GENDER.MALE, is_active=True).exclude(user_create_zoom=user)
                 if conversation.exists():
+                    conversation.update(user_guest=user)
                     return conversation.last()
                 else:
                     conversation = Conversation.objects.create(
                         name=rand_str(),
                         user_gender=user_gender,
                         find_gender=find_gender,
+                        user_create_zoom=user,
                     )
                     return conversation
 
         
     if user_gender == GENDER.FEMALE:
         if find_gender == GENDER.MALE:
-            conversation = Conversation.objects.filter(user_gender=GENDER.MALE, find_gender=GENDER.FEMALE, is_active=True)
+            conversation = Conversation.objects.filter(user_gender=GENDER.MALE, find_gender=GENDER.FEMALE, is_active=True).exclude(user_create_zoom=user)
             if conversation.exists():
+                conversation.update(user_guest=user)
                 return conversation.last()
             else:
                 conversation = Conversation.objects.create(
                     name=rand_str(),
                     user_gender=user_gender,
                     find_gender=find_gender,
+                    user_create_zoom=user,
                 )
                 return conversation
 
         elif find_gender == GENDER.FEMALE:
-            conversation = Conversation.objects.filter(user_gender=GENDER.FEMALE, find_gender=GENDER.FEMALE, is_active=True)
+            conversation = Conversation.objects.filter(user_gender=GENDER.FEMALE, find_gender=GENDER.FEMALE, is_active=True).exclude(user_create_zoom=user)
             if conversation.exists():
+                conversation.update(user_guest=user)
                 return conversation.last()
             else:
                 conversation = Conversation.objects.create(
                     name=rand_str(),
                     user_gender=user_gender,
                     find_gender=find_gender,
+                    user_create_zoom=user,
                 )
                 return conversation
         elif find_gender == GENDER.LGBT:
-            conversation = Conversation.objects.filter(user_gender=GENDER.LGBT, find_gender=GENDER.FEMALE, is_active=True)
+            conversation = Conversation.objects.filter(user_gender=GENDER.LGBT, find_gender=GENDER.FEMALE, is_active=True).exclude(user_create_zoom=user)
             if conversation.is_exits():
+                conversation.update(user_guest=user)
                 return conversation.last()
             else:
                 conversation = Conversation.objects.create(
                     name=rand_str(),
                     user_gender=user_gender,
                     find_gender=find_gender,
+                    user_create_zoom=user,
                 )
                 return conversation
 
     if user_gender == GENDER.LGBT:
         if find_gender == GENDER.MALE:
-            conversation = Conversation.objects.filter(user_gender=GENDER.MALE, find_gender=GENDER.LGBT, is_active=True)
+            conversation = Conversation.objects.filter(user_gender=GENDER.MALE, find_gender=GENDER.LGBT, is_active=True).exclude(user_create_zoom=user)
             if conversation.exists():
+                conversation.update(user_guest=user)
                 return conversation.last()
             else:
                 conversation = Conversation.objects.create(
                     name=rand_str(),
                     user_gender=user_gender,
                     find_gender=find_gender,
+                    user_create_zoom=user,
                 )
 
         elif find_gender == GENDER.FEMALE:
-            conversation = Conversation.objects.filter(user_gender=GENDER.FEMALE, find_gender=GENDER.LGBT, is_active=True)
+            conversation = Conversation.objects.filter(user_gender=GENDER.FEMALE, find_gender=GENDER.LGBT, is_active=True).exclude(user_create_zoom=user)
             if conversation.exists():
+                conversation.update(user_guest=user)
                 return conversation.last()
             else:
                 conversation = Conversation.objects.create(
                     name=rand_str(),
                     user_gender=user_gender,
                     find_gender=find_gender,
+                    user_create_zoom=user,
                 )
                 return conversation
         elif find_gender == GENDER.LGBT:
-            conversation = Conversation.objects.filter(user_gender=GENDER.LGBT, find_gender=GENDER.LGBT, is_active=True)
+            conversation = Conversation.objects.filter(user_gender=GENDER.LGBT, find_gender=GENDER.LGBT, is_active=True).exclude(user_create_zoom=user)
             if conversation.exists():
+                conversation.update(user_guest=user)
                 return conversation.last()
             else:
                 conversation = Conversation.objects.create(
                     name=rand_str(),
                     user_gender=user_gender,
                     find_gender=find_gender,
+                    user_create_zoom=user,
                 )
                 return conversation

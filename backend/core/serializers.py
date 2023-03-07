@@ -10,6 +10,7 @@ class TokenObtainPairPatchedSerializer(TokenObtainPairSerializer):
         # The default result (access/refresh tokens)
         data = super(TokenObtainPairPatchedSerializer, self).validate(attrs)
 
+        data['username'] = self.user.username
         return data
         # Custom data you want to include
         # data.update({'organization': self.user.organization.uid})
@@ -18,12 +19,18 @@ class TokenObtainPairPatchedSerializer(TokenObtainPairSerializer):
 class UserCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = AuthUser
-        fields = '__all__'
+        fields = [
+            'id',
+            'email',
+            'username',
+            'age',
+            'gender',
+            'address',
+            "password"
+        ]
     
     def create(self, validated_data):
-        print(validated_data)
         user = super().create(validated_data)
-        print(user)
         user.set_password(validated_data["password"])
         user.save()
         return user
@@ -47,7 +54,7 @@ class MessageSerializer(serializers.ModelSerializer):
             "from_user",
             "to_user",
             "content",
-            "timestamp",
+            "created_at",
             "read",
         )
 

@@ -12,13 +12,11 @@ const Chat = () => {
   const { conversationName } = useParams();
   const { user } = useContext(AuthContext);
   const timeout = useRef<any>();
-  const [isStart, setStart] = useState<boolean>(true);
+  const [isStart, setStart] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
 
   const { readyState, sendJsonMessage } = useWebSocket(
-    user
-      ? `wss://bw780ixpc0.execute-api.ap-southeast-1.amazonaws.com/production`
-      : null,
+    user ? `ws://localhost:8909/chats/${conversationName}/` : null,
     {
       queryParams: {
         token: user ? user.access : "",
@@ -31,11 +29,9 @@ const Chat = () => {
       },
       // onMessage handler
       onMessage: (e) => {
-        const data = JSON.parse(e?.data);
-        console.log(data);
-
-        switch (data) {
-          case "pulicMessage":
+        const data = JSON.parse(e.data);
+        switch (data.type) {
+          case "chat_message_echo":
             setMessageHistory((prev: any) => [...prev, data.message]);
             sendJsonMessage({
               type: "read_messages",
@@ -76,7 +72,8 @@ const Chat = () => {
     if (message.length === 0) return;
     if (message.length > 512) return;
     sendJsonMessage({
-      action: "sendPrivate",
+      type: "chat_message",
+      message,
     });
   };
 
