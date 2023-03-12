@@ -2,7 +2,7 @@ from pyexpat import model
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
-from .models import AuthUser, Conversation, Message
+from .models import AuthUser, Config, Conversation, Message
 
 
 class TokenObtainPairPatchedSerializer(TokenObtainPairSerializer):
@@ -39,6 +39,11 @@ class UserCreateSerializer(serializers.ModelSerializer):
 class ConversationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Conversation
+        fields = '__all__'
+
+class NotiSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Config
         fields = '__all__'
 
 class MessageSerializer(serializers.ModelSerializer):

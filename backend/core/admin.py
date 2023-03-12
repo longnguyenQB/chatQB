@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import AuthUser, Conversation, Message
+from .models import AuthUser, Config, Conversation, Message
 
 
 # Register your models here.
@@ -13,3 +13,4 @@ class MessageAdmin(admin.ModelAdmin):
 admin.site.register(AuthUser)
 admin.site.register(Conversation, ConversationAdmin)
 admin.site.register(Message, MessageAdmin)
+admin.site.register(Config)

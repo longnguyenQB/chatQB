@@ -7,8 +7,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-from .models import Conversation
-from .serializers import (ConversationSerializer,
+from .models import AuthUser, Config, Conversation
+from .serializers import (ConversationSerializer, NotiSerializer,
                           TokenObtainPairPatchedSerializer,
                           UserCreateSerializer)
 
@@ -54,6 +54,10 @@ class FindingRoom(APIView):
     def post(self, request):
         data = request.data
         user = request.user
+        if user.count_join >= 5:
+             return Response({"message":"Max user join is 5"}, 200)
+        user.count_join = user.count_join + 1
+        user.save()
         find_gender = data.get("find_gender")
         user_gender = user.gender
         conversation = get_or_create(user,find_gender,user_gender)
@@ -190,3 +194,31 @@ def get_or_create(user, find_gender, user_gender):
                     user_create_zoom=user,
                 )
                 return conversation
+
+class Noti(APIView):
+    def get(self, request):
+        noti = Config.objects.all().first()
+        if noti:
+            noti_serializer = NotiSerializer(noti)
+            return Response(noti_serializer.data, 200)
+        else:
+            return Response({"messsage":"not found"}, 400)
+
+class Report(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request):
+        data = request.data
+        username = data.get("username")
+        print(username)
+        try:
+            user = AuthUser.objects.filter(username=username).first()
+            print(user)
+            if user is not None:
+                user.count_report = user.count_report +1 
+                user.save()
+                return Response({"message":"Report successfully"}, 200)
+            else:
+                return Response({"message":"User not found"}, 400)
+        except Exception as e:
+              return Response({"message":str(e)}, 400)

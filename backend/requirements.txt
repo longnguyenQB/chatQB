@@ -34,3 +34,4 @@ requests==2.26.0
 django-jazzmin
 dj_database_url
 pytz
+celery

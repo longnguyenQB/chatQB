@@ -43,6 +43,24 @@ services:
       - .:/app
     command: python manage.py runserver 0.0.0.0:8000
     env_file: common.env
+  
+  worker:
+    container_name: random-chat-worker
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        STATIC_URL: "/static/"
+    command: celery -A backend --app=backend.celeryconf:app worker -B --concurrency=2 --loglevel=info 
+    restart: unless-stopped
+    networks:
+      - default
+    env_file: common.env
+    depends_on:
+      - redis
+    volumes:
+      - .:/app
+      # shared volume between worker and api for media
 
 volumes:
   backend-redis:

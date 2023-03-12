@@ -57,6 +57,10 @@ class ChatConsumer(JsonWebsocketConsumer):
                     {
                         "type": "user_join",
                         "user": self.user.username,
+                        "user_create": self.conversation.user_create_zoom.username,
+                        "user_guest": self.conversation.user_guest.username,
+                        "report_user": self.conversation.user_create_zoom.count_report,
+                        "report_guest": self.conversation.user_guest.count_report
                     },
                 )
 

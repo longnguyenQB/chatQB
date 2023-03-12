@@ -1,3 +1,5 @@
+from statistics import mode
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
@@ -19,7 +21,8 @@ class AuthUser(AbstractUser):
     )
     age = models.IntegerField(default=0)
     address = models.CharField(max_length=500, unique=False, null=True)
-
+    count_join = models.IntegerField(default=0)
+    count_report = models.IntegerField(default=0)
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
 
@@ -73,3 +76,10 @@ class Message(models.Model):
 
     def __str__(self):
         return f"From {self.from_user.username} to {self.to_user.username}: {self.content} [{self.created_at}]"
+
+class Config(models.Model):
+    noti_text = models.CharField(max_length=500, null=True, blank=True)
+    link = models.CharField(max_length=500, null=True, blank=True)
+    
+    def __str__(self) -> str:
+        return self.noti_text
